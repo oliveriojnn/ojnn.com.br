@@ -1,0 +1,10 @@
+services:
+  ojnn:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./app/:/usr/share/nginx/html/
+    restart: always
