@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      name: {{ .Values.app.name }}
+      labels:
+        app: {{ .Values.app.name }}
+    spec:
+      imagePullSecrets:
+        - name: gcr-secret
+      containers:
+        - name: {{ .Values.app.name }}
+          image: "us-central1-docker.pkg.dev/sjcc-infrastructure/{{ .Values.app.name }}/{{ .Values.app.enviroment }}:{{ .Values.app.version }}"
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 60
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 60
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: {{ .Values.app.rCpu }}
+              memory: {{ .Values.app.rMemory }}
+            limits:
+              cpu: {{ .Values.app.lCpu }}
+              memory: {{ .Values.app.lMemory }}
