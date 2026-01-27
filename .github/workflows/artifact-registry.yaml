@@ -28,6 +28,6 @@ jobs:
           sed -i 's/version: .*/version: "${{ github.sha }}"/' Chart/values-staging.yaml
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add Chart/values-staging.yaml
+          git add Chart/values.yaml
           git commit -m "chore: update staging image to ${{ github.sha }} [skip ci]" || echo "No changes"
           git push || echo "No push needed"
