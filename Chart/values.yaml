@@ -1,8 +1,8 @@
 app:
   enviroment: "production"
   name: "ojnn"
-  version: "713268a8960686af8d6da7b179bf843f6329a6ca"
-  host: "ojnn.com.br"
+  version: "4865ba1782d1c28a27eccc6b1f22386d1dedb600"
+  host: "www.ojnn.com.br"
   rCpu: "0.2"
   rMemory: "256Mi"
   lCpu: "0.3"
