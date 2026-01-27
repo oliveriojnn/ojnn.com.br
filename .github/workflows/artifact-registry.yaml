@@ -25,7 +25,7 @@ jobs:
           gcloud builds submit --tag us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }}/ojnn:latest
     - name: Update values
       run: |
-          sed -i 's/version: .*/version: "${{ github.sha }}"/' Chart/values-staging.yaml
+          sed -i 's/version: .*/version: "${{ github.sha }}"/' Chart/values.yaml
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add Chart/values.yaml
