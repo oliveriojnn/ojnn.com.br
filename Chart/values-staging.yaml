@@ -1,7 +1,7 @@
 app:
   enviroment: "staging"
   name: "ojnn"
-  version: "d3392635b973fe7e94999e070bfd4adf7ca7d7f8"
+  version: "c45d7e8e89d9ea7976f25623c435d6f737c944f5"
   host: "dev.ojnn.com.br"
   rCpu: "0.2"
   rMemory: "128Mi"
