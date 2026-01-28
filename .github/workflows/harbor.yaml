@@ -38,16 +38,6 @@ jobs:
         tags: |
           ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:staging-${{ github.sha }}
 
-    - name: Update values - staging
-      if: github.ref == 'refs/heads/dev'
-      run: |
-        sed -i 's/version: .*/version: "${{ github.sha }}"/' Chart/values-staging.yaml
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add Chart/values-staging.yaml
-        git commit -m "chore: update staging image to ${{ github.sha }} [skip ci]" || echo "No changes"
-        git push || echo "No push needed"
-
     - name: Build & Push - production
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
@@ -56,13 +46,3 @@ jobs:
         push: true
         tags: |
           ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:production-${{ github.sha }}
-
-    - name: Update values - production
-      if: github.ref == 'refs/heads/master'
-      run: |
-        sed -i 's/version: .*/version: "${{ github.sha }}"/' Chart/values-production.yaml
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add Chart/values-production.yaml
-        git commit -m "chore: update production image to ${{ github.sha }} [skip ci]" || echo "No changes"
-        git push || echo "No push needed"

@@ -10,6 +10,13 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: |
+      app=harbor.ojnn.com.br/homelab/ojnn
+    argocd-image-updater.argoproj.io/app.update-strategy: newest
+    argocd-image-updater.argoproj.io/app.allow-tags: regexp:^production-.*
+    argocd-image-updater.argoproj.io/app.pull-secret: |
+      secret:argocd-image-updater/harbor-secret
 spec:
   project: default
   
