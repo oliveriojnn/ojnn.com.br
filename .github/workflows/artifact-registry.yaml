@@ -1,4 +1,4 @@
-name: Deploy ojnn.com.br
+name: Deploy ojnn.com.br to Artifact Registry
 on:
   push:
     branches:
