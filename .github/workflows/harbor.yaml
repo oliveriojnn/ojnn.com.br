@@ -6,6 +6,9 @@ on:
       - dev
       - master
 
+permissions:
+  contents: write
+
 jobs:
   build-publish-deploy:
     name: Build and Publish to Harbor
