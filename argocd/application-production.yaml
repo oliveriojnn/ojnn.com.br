@@ -19,7 +19,7 @@ spec:
     path: Chart
     helm:
       valueFiles:
-        - values.yaml
+        - values-production.yaml
   
   destination:
     server: https://kubernetes.default.svc
