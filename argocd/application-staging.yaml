@@ -13,12 +13,11 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: |
       app=harbor.ojnn.com.br/homelab/ojnn
-    argocd-image-updater.argoproj.io/app.update-strategy: newest
+    argocd-image-updater.argoproj.io/app.update-strategy: name
     argocd-image-updater.argoproj.io/app.allow-tags: regexp:^staging-.*
     argocd-image-updater.argoproj.io/app.helm.image-tag: app.version
     argocd-image-updater.argoproj.io/write-back-method: argocd
-    argocd-image-updater.argoproj.io/app.pull-secret: |
-      secret:argocd-image-updater/harbor-secret
+    argocd-image-updater.argoproj.io/app.pull-secret: pullsecret:argocd/harbor-secret
 spec:
   project: default
   
