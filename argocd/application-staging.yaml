@@ -15,6 +15,7 @@ metadata:
       app=harbor.ojnn.com.br/homelab/ojnn
     argocd-image-updater.argoproj.io/app.update-strategy: newest
     argocd-image-updater.argoproj.io/app.allow-tags: regexp:^staging-.*
+    argocd-image-updater.argoproj.io/app.helm.image-tag: version
     argocd-image-updater.argoproj.io/app.pull-secret: |
       secret:argocd-image-updater/harbor-secret
 spec:
