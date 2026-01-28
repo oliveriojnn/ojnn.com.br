@@ -13,10 +13,10 @@ spec:
         app: {{ .Values.app.name }}
     spec:
       imagePullSecrets:
-        - name: artifact-registry-gcp
+        - name: harbor-secret
       containers:
         - name: {{ .Values.app.name }}
-          image: "us-central1-docker.pkg.dev/sjcc-infrastructure/{{ .Values.app.name }}/{{ .Values.app.name }}:{{ .Values.app.version }}"
+          image: "harbor.ojnn.com.br/homelab/{{ .Values.app.name }}:{{ .Values.app.enviroment }}-{{ .Values.app.version }}"
           ports:
             - containerPort: 80
           readinessProbe:
