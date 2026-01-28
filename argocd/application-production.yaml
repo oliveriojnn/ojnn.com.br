@@ -13,7 +13,7 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: |
       app=harbor.ojnn.com.br/homelab/ojnn
-    argocd-image-updater.argoproj.io/app.update-strategy: name
+    argocd-image-updater.argoproj.io/app.update-strategy: alphabetical
     argocd-image-updater.argoproj.io/app.allow-tags: regexp:^production-.*
     argocd-image-updater.argoproj.io/app.helm.image-tag: app.version
     argocd-image-updater.argoproj.io/write-back-method: argocd
