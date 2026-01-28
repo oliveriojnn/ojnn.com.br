@@ -1,4 +1,4 @@
-name: Deploy ojnn.com.br to Harbor
+name: Deploy ojnn.com.br to Harbor.
 
 on:
   push:
