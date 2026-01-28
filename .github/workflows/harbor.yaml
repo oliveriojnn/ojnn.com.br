@@ -29,6 +29,10 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
+    - name: Generate timestamp
+      id: timestamp
+      run: echo "timestamp=$(date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
+
     - name: Build & Push - staging
       if: github.ref == 'refs/heads/dev'
       uses: docker/build-push-action@v5
@@ -36,7 +40,7 @@ jobs:
         context: .
         push: true
         tags: |
-          ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:staging-$(date +%Y%m%d%H%M%S)-${{ github.sha }}
+          ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:staging-${{ steps.timestamp.outputs.timestamp }}-${{ github.sha }}
 
     - name: Build & Push - production
       if: github.ref == 'refs/heads/master'
@@ -45,4 +49,4 @@ jobs:
         context: .
         push: true
         tags: |
-          ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:production-$(date +%Y%m%d%H%M%S)-${{ github.sha }}
+          ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:production-${{ steps.timestamp.outputs.timestamp }}-${{ github.sha }}
