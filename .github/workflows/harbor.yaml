@@ -1,4 +1,4 @@
-name: Deploy CEP.
+name: Deploy ojnn.com.br
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-publish-deploy:
-    name: Build, Publish and Deploy
+    name: Build and Publish to Harbor
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
 
