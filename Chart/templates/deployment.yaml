@@ -16,7 +16,7 @@ spec:
         - name: harbor-secret
       containers:
         - name: {{ .Values.app.name }}
-          image: "harbor.ojnn.com.br/homelab/{{ .Values.app.name }}:{{ .Values.app.enviroment }}-{{ .Values.app.version }}"
+          image: "harbor.ojnn.com.br/homelab/{{ .Values.app.name }}:{{ .Values.app.version }}"
           ports:
             - containerPort: 80
           readinessProbe:

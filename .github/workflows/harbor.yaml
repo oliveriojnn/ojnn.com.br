@@ -37,7 +37,7 @@ jobs:
         push: true
         tags: |
           ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:staging-${{ github.sha }}
-          ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:latest
+          ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:staging-latest
 
     - name: Build & Push - production
       if: github.ref == 'refs/heads/master'
@@ -47,4 +47,4 @@ jobs:
         push: true
         tags: |
           ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:production-${{ github.sha }}
-          ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:latest
+          ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:production-latest
