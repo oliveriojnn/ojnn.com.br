@@ -1,4 +1,4 @@
-name: Deploy ojnn.com.br to Harbor
+name: Deploy OJNN to Harbor
 
 on:
   push:
@@ -6,14 +6,10 @@ on:
       - dev
       - master
 
-permissions:
-  contents: write
-
 jobs:
   build-publish-deploy:
-    name: Build and Publish to Harbor
+    name: Build, Publish and Deploy
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
 
     steps:
     - name: Checkout
@@ -39,6 +35,26 @@ jobs:
           ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:staging-${{ github.sha }}
           ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:staging-latest
 
+    - name: Checkout k8s-config - staging
+      if: github.ref == 'refs/heads/dev'
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ github.repository_owner }}/k8s-config
+        token: ${{ secrets.GH_TOKEN }}
+        ref: main
+        path: k8s-config
+
+    - name: Update values.yaml for staging
+      if: github.ref == 'refs/heads/dev'
+      run: |
+        cd k8s-config
+        sed -i 's|version: .*|version: "staging-${{ github.sha }}"|g' applications/staging/ojnn-com-br/values.yaml
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add applications/staging/ojnn-com-br/values.yaml
+        git commit -m "Update staging version to staging-${{ github.sha }}" || echo "No changes"
+        git push origin main
+
     - name: Build & Push - production
       if: github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v5
@@ -48,3 +64,23 @@ jobs:
         tags: |
           ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:production-${{ github.sha }}
           ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT }}/ojnn:production-latest
+
+    - name: Checkout k8s-config - production
+      if: github.ref == 'refs/heads/master'
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ github.repository_owner }}/k8s-config
+        token: ${{ secrets.GH_TOKEN }}
+        ref: main
+        path: k8s-config
+
+    - name: Update values.yaml for production
+      if: github.ref == 'refs/heads/master'
+      run: |
+        cd k8s-config
+        sed -i 's|version: .*|version: "production-${{ github.sha }}"|g' applications/production/ojnn-com-br/values.yaml
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add applications/production/ojnn-com-br/values.yaml
+        git commit -m "Update production version to production-${{ github.sha }}" || echo "No changes"
+        git push origin main

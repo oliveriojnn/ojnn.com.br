@@ -1,0 +1,11 @@
+app:
+  enviroment: ""
+  name: "ojnn"
+  version: ""
+  host: ""
+  rCpu: ""
+  rMemory: ""
+  lCpu: ""
+  lMemory: ""
+  minReplicas: ""
+  maxReplicas: ""
