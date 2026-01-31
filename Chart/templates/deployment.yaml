@@ -13,7 +13,7 @@ spec:
         app: {{ .Values.app.name }}
     spec:
       imagePullSecrets:
-        - name: harbor-secret
+        - name: harbor
       containers:
         - name: {{ .Values.app.name }}
           image: "harbor.ojnn.com.br/ojnn/{{ .Values.app.name }}:{{ .Values.app.version }}"
